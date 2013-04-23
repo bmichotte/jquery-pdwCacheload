@@ -1,16 +1,5 @@
 ###jQuery pdwCacheload
 
-Script used to avoid onload event with cached image
+Script used to avoid onload event not fired with cached images
 
-
-Example
-
-```
-$(function()
-{
-	$('.images').pdwCacheload(function()
-	{
-		doSomethingWithYouImage();
-	})
-});
-```
+Look at example/index.html for use.
