@@ -24,43 +24,41 @@ if (jQuery)
 {
     (function($)
     {
-        $.extend($.fn, {
-            pdwCacheload: function(callback)
+        $.fn.pdwCacheload = function(callback)
+        {
+            var fake = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+            this.unbind().bind('load', function()
             {
-                var fake = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-                $(this).unbind().bind('load', function()
+                if (this.src != fake)
                 {
-                    if (this.src != fake)
+                    if (!$.support.leadingWhitespace)
                     {
-                        if (! $.support.leadingWhitespace)
+                        var img = this;
+                        setTimeout(function()
                         {
-                            var img = this;
-                            setTimeout(function()
-                            {
-                                callback.apply(img);
-                            }, 250);
-                        }
-                        else
-                        {
-                            callback.apply(this);
-                        }
+                            callback.apply(img);
+                        }, 250);
                     }
-                });
-                var domElement = $(this).get(0);
-
-                // cached images don't fire load sometimes, so we reset src.
-                if (domElement.complete || domElement.complete === undefined)
-                {
-                    var src = domElement.src;
-
-                    // webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
-                    // data uri bypasses webkit log warning (thx doug jones)
-                    domElement.src = fake;
-                    domElement.src = src;
+                    else
+                    {
+                        callback.apply(this);
+                    }
                 }
+            });
+            var domElement = this.get(0);
 
-                return this;
+            // cached images don't fire load sometimes, so we reset src.
+            if (domElement.complete || domElement.complete === undefined)
+            {
+                var src = domElement.src;
+
+                // webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
+                // data uri bypasses webkit log warning (thx doug jones)
+                domElement.src = fake;
+                domElement.src = src;
             }
-        });
+
+            return this;
+        };
     })(jQuery);
 }

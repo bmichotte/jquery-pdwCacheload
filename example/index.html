@@ -3,24 +3,60 @@
 <head>
     <meta charset="utf-8"/>
     <title>jQuery pdwCacheload</title>
+    <style>
+        p
+        {
+            clear: both;
+        }
+
+        img
+        {
+            float: left;
+        }
+    </style>
 </head>
 <body>
-    <article>
-        <img src="http://farm4.staticflickr.com/3364/3424254886_a7dd208726.jpg" width="500" height="467" alt="Dickies Tavern">
-        <img src="http://farm4.staticflickr.com/3404/3424254846_793a2f12c8.jpg" width="500" height="463" alt="Great Falls">
-        <img src="http://farm4.staticflickr.com/3380/3423377955_42e446ae64.jpg" width="500" height="362" alt="Taft Inauguration">
-        <img src="http://farm4.staticflickr.com/3381/3329427595_9021abd90a.jpg" width="500" height="375" alt="Easter egg roll on the lawn of the White House, ca. 1905">
-    </article>
-    <script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
-    <script src="../src/jquery.pdwCacheload.js"></script>
-    <script type="text/javascript">
-        $(function()
+<article>
+    <p>bind onload event to resize images. While they are in cache, the script is no longer called on some browsers</p>
+
+    <p>
+        <img class="classic" src="http://farm4.staticflickr.com/3364/3424254886_a7dd208726.jpg" width="500" height="467" alt="Dickies Tavern">
+        <img class="classic" src="http://farm4.staticflickr.com/3404/3424254846_793a2f12c8.jpg" width="500" height="463" alt="Great Falls">
+        <img class="classic" src="http://farm4.staticflickr.com/3380/3423377955_42e446ae64.jpg" width="500" height="362" alt="Taft Inauguration">
+        <img class="classic" src="http://farm4.staticflickr.com/3381/3329427595_9021abd90a.jpg" width="500" height="375" alt="Easter egg roll on the lawn of the White House, ca. 1905">
+    </p>
+
+    <p>bind pdwCacheload event to resize images.</p>
+
+    <p>
+        <img class="resize" src="http://farm4.staticflickr.com/3364/3424254886_a7dd208726.jpg" width="500" height="467" alt="Dickies Tavern">
+        <img class="resize" src="http://farm4.staticflickr.com/3404/3424254846_793a2f12c8.jpg" width="500" height="463" alt="Great Falls">
+        <img class="resize" src="http://farm4.staticflickr.com/3380/3423377955_42e446ae64.jpg" width="500" height="362" alt="Taft Inauguration">
+        <img class="resize" src="http://farm4.staticflickr.com/3381/3329427595_9021abd90a.jpg" width="500" height="375" alt="Easter egg roll on the lawn of the White House, ca. 1905">
+    </p>
+</article>
+<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+<script src="../src/jquery.pdwCacheload.js"></script>
+<script type="text/javascript">
+    $(function()
+    {
+        $('.classic').load(function()
         {
-           $('img').pdwCacheload(function()
-           {
-               console.log($(this).attr('src') + ' is loaded')
-           })
+            console.log('.classic ' + $(this).attr('src') + ' is loaded');
+            $(this).css({
+                width: '150px',
+                height: '150px'
+            });
+        })
+        $('.resize').pdwCacheload(function()
+        {
+            console.log('.resize ' + $(this).attr('src') + ' is loaded');
+            $(this).css({
+                width: '150px',
+                height: '150px'
+            });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
